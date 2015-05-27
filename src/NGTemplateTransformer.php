@@ -62,7 +62,7 @@ EOTEMPLATE;
 
         return new \DC\Bundler\Content(
             $this->getOutputContentType(),
-            sprintf($wrapperTemplate, $this->module, implode('\n', $items)));
+            sprintf($wrapperTemplate, $this->module, implode("", $items)));
     }
 
     /**

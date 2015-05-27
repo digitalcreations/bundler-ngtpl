@@ -49,6 +49,29 @@ EOJS;
         $this->assertEquals($desired, $result->getContent());
     }
 
+    public function testTransformMultiple_multipleTemplates_correctlyRendered()
+    {
+        $transformer = new \DC\Bundler\NGTemplate\NGTemplateTransformer("foo");
+        $result = $transformer->transformMultiple(
+            [
+                new \DC\Bundler\Content("text/html", self::$Templates["a"], "a"),
+                new \DC\Bundler\Content("text/html", self::$Templates["b"], "b")
+            ]);
+        $this->assertEquals("application/javascript", $result->getContentType());
+        $desired = <<<EOJS
+(function(angular){
+    angular
+        .module('foo')
+        .run(['\$templateCache', function(\$templateCache) {
+            \$templateCache.put("\/a", "<h1>A<\/h1>");
+            \$templateCache.put("\/b", "<h2>B<\/h2>\\n<p>Foo<\/p>");
+        }]);
+})(angular);
+EOJS;
+        $this->assertEquals($desired, $result->getContent());
+    }
+
+
     public function testGetOutputContentType_javascript() {
         $transformer = new \DC\Bundler\NGTemplate\NGTemplateTransformer("foo");
         $this->assertEquals("application/javascript", $transformer->getOutputContentType());
