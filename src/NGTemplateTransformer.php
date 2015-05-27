@@ -47,14 +47,13 @@ class NGTemplateTransformer implements \DC\Bundler\IMultiFileTransformer {
 })(angular);
 EOTEMPLATE;
         $itemTemplate = <<<EOTEMPLATE
-\r\n            \$templateCache.put('%s', '%s');
+\r\n            \$templateCache.put(%s, %s);
 EOTEMPLATE;
 
         $items = [];
         foreach ($contents as $content) {
-            $html = $content->getContent();
-            $html = preg_replace('/\n/', '\\n', $html);
-            $items[] = sprintf($itemTemplate, $content->getPath(), $html);
+            $html = json_encode($content->getContent());
+            $items[] = sprintf($itemTemplate, json_encode($content->getPath()), $html);
         }
 
         return new \DC\Bundler\Content(
