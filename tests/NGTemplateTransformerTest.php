@@ -22,7 +22,7 @@ class NGTemplateTransformerTest extends \PHPUnit_Framework_TestCase {
     angular
         .module('foo')
         .run(['\$templateCache', function(\$templateCache) {
-            \$templateCache.put("a", "<h1>A<\/h1>");
+            \$templateCache.put("\/a", "<h1>A<\/h1>");
         }]);
 })(angular);
 EOJS;
@@ -42,7 +42,7 @@ EOJS;
     angular
         .module('foo')
         .run(['\$templateCache', function(\$templateCache) {
-            \$templateCache.put("b", "<h2>B<\/h2>\\n<p>Foo<\/p>");
+            \$templateCache.put("\/b", "<h2>B<\/h2>\\n<p>Foo<\/p>");
         }]);
 })(angular);
 EOJS;

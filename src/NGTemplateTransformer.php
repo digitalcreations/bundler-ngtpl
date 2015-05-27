@@ -53,7 +53,11 @@ EOTEMPLATE;
         $items = [];
         foreach ($contents as $content) {
             $html = json_encode($content->getContent());
-            $items[] = sprintf($itemTemplate, json_encode($content->getPath()), $html);
+            $path = $content->getPath();
+            if ($path[0] != "/") {
+                $path = "/" . $path;
+            }
+            $items[] = sprintf($itemTemplate, json_encode($path), $html);
         }
 
         return new \DC\Bundler\Content(
