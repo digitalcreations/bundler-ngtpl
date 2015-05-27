@@ -9,6 +9,10 @@ class NGTemplateTransformerTest extends \PHPUnit_Framework_TestCase {
         "b" => "<h2>B</h2>\n<p>Foo</p>"
     ];
 
+    private static function fixEOL($text) {
+        return str_replace("\r\n", "\n", $text);
+    }
+
     public function testTransformMultiple_simpleTemplate_correctlyRendered()
     {
         $transformer = new \DC\Bundler\NGTemplate\NGTemplateTransformer("foo");
@@ -26,7 +30,7 @@ class NGTemplateTransformerTest extends \PHPUnit_Framework_TestCase {
         }]);
 })(angular);
 EOJS;
-        $this->assertEquals(trim($desired), trim($result->getContent()));
+        $this->assertEquals(self::fixEOL($desired), self::fixEOL($result->getContent()));
     }
 
     public function testTransformMultiple_multilineTemplate_correctlyRendered()
@@ -46,7 +50,7 @@ EOJS;
         }]);
 })(angular);
 EOJS;
-        $this->assertEquals($desired, $result->getContent());
+        $this->assertEquals(self::fixEOL($desired), self::fixEOL($result->getContent()));
     }
 
     public function testTransformMultiple_multipleTemplates_correctlyRendered()
@@ -68,7 +72,7 @@ EOJS;
         }]);
 })(angular);
 EOJS;
-        $this->assertEquals($desired, $result->getContent());
+        $this->assertEquals(self::fixEOL($desired), self::fixEOL($result->getContent()));
     }
 
 

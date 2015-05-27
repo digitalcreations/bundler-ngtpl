@@ -46,8 +46,8 @@ class NGTemplateTransformer implements \DC\Bundler\IMultiFileTransformer {
         }]);
 })(angular);
 EOTEMPLATE;
-        $itemTemplate = <<<EOTEMPLATE
-\r\n            \$templateCache.put(%s, %s);
+        $itemTemplate = PHP_EOL. <<<EOTEMPLATE
+            \$templateCache.put(%s, %s);
 EOTEMPLATE;
 
         $items = [];
